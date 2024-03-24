@@ -1,6 +1,13 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
+    trackingId:{
+        type:String,
+        default:function(){
+            return Math.floor(100000 + Math.random()* 900000).toString();
+        },
+        unique:true
+    },
     userId :{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User",
@@ -19,9 +26,12 @@ const orderSchema = new mongoose.Schema({
         quantity:{
             type:Number,
             require:true
+        },
+        orderStatus: {
+            type: String,
+            default: 'Pending'
         },   
-    }
-    ],
+    }],
     totalPrice:{
         type:Number,
         default:0,
@@ -41,14 +51,18 @@ const orderSchema = new mongoose.Schema({
         type: String,
         default: 'pending'
     },
-    orderStatus: {
-        type: String,
-        default: 'pending'
-    },
+    // orderStatus: {
+    //     type: String,
+    //     default: 'Pending'
+    // },
     orderDate: {
         type: Date,
         default: Date.now,
-    }
+    },
+    paymentMethod: {
+        type: String,
+        default: 'Cash On Delivery'
+    },
 });
 
 

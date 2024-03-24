@@ -311,7 +311,7 @@
         </div>
       </div>
     </div>
-    <header class="header-area header-style-2 header-height-2">
+    <header class="header-area header-style-1 header-height-1">
       <!-- <div class="header-top header-top-ptb-1 d-none d-lg-block">
         <div class="container">
           <div class="row align-items-center">
@@ -330,28 +330,31 @@
               </a>
             </div>
             <div class="header-right">
-              <div class="search-style-2">
-                <form action="#">
-                  <input type="text" placeholder="Search for items..." />
+              <div class="search-style-1">
+                <form action="/search" method="GET">
+                  <input type="text" name="q" placeholder="Search for items..." /> 
+                  <button type="submit"><i class="fi-rs-search"></i></button>
                 </form>
               </div>
               <div class="header-action-right">
                 <div class="header-action-2">
+                  
                   <div class="header-action-icon-2">
                     <a href="shop-wishlist.html">
                       <img class="svgInject" alt="Evara" src="/static/User_assets/imgs/theme/icons/icon-heart.svg" />
-                      <span class="pro-count blue">4</span>
+                      <!-- <span class="pro-count blue">4</span> -->
                     </a>
                   </div>
                   <div class="header-action-icon-2">
-                    <a class="mini-cart-icon" href="shop-cart.html">
+                    <a class="mini-cart-icon" href="/shopCart">
                       <img alt="Evara" src="/static/User_assets/imgs/theme/icons/icon-cart.svg" />
-                      <span class="pro-count blue">2</span>
+                      <!-- <span class="pro-count blue">2</span> -->
                     </a>
                   </div>
                   <div class="header-action-icon-2">
                     <a class="mini-cart-icon" href="/usersProfileHome">
-                      <img alt="Evara" src="/static/User_assets/imgs/theme/icons/user-profile.jpg" />
+                      <i class="fi-rs-user"></i>
+                      <!-- <img alt="Evara" src="/static/User_assets/imgs/theme/icons/userProfile.jpg" style="width: 70px; height: 40px;" /> -->
                       
                     </a>
                   </div>
@@ -375,11 +378,11 @@
               </a>
             </div>
             <div class="header-nav d-none d-lg-flex">
-              <div class="main-categori-wrap d-none d-lg-block">
-                <a class="categori-button-active open" href="#">
+              <!-- <div class="main-categori-wrap d-none d-lg-block">
+                <a class="categori-button-active open" href="/shop">
                   <span class="fi-rs-apps"></span> Browse Categories
                 </a>
-              </div>
+              </div> -->
               <div
                 class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block"
               >
@@ -412,7 +415,8 @@
 
             <div class="hotline d-none d-lg-block">
               <ul>
-                <i class="fi-rs-user"></i>
+                <i class="fi-rs-sign-out mr-10"></i>
+
                   <% if (user) { %>
 
                    <a href="/userLogout">Logout</a>
@@ -427,75 +431,24 @@
             <div class="header-action-right d-block d-lg-none">
               <div class="header-action-2">
                 <div class="header-action-icon-2">
-                  <a href="shop-wishlist.html">
+                  <a href="#">
                     <img
                       alt="Evara"
                       src="/static/User_assets/imgs/theme/icons/icon-heart.svg"
                     />
-                    <span class="pro-count white">4</span>
+                    <!-- <span class="pro-count white">4</span> -->
                   </a>
                 </div>
                 <div class="header-action-icon-2">
-                  <a class="mini-cart-icon" href="shop-cart.html">
+                  <a class="mini-cart-icon" href="/shopCart">
                     <img
                       alt="Evara"
                       src="/static/User_assets/imgs/theme/icons/icon-cart.svg"
                     />
-                    <span class="pro-count white">2</span>
+                    <!-- <span class="pro-count white">2</span> -->
                   </a>
-                  <div class="cart-dropdown-wrap cart-dropdown-hm2">
-                    <ul>
-                      <li>
-                        <div class="shopping-cart-img">
-                          <a href="shop-product-right.html"
-                            ><img
-                              alt="Evara"
-                              src="/static/User_assets/imgs/shop/thumbnail-3.jpg"
-                          /></a>
-                        </div>
-                        <div class="shopping-cart-title">
-                          <h4>
-                            <a href="shop-product-right.html"
-                              >Plain Striola Shirts</a
-                            >
-                          </h4>
-                          <h3><span>1 × </span>$800.00</h3>
-                        </div>
-                        <div class="shopping-cart-delete">
-                          <a href="#"><i class="fi-rs-cross-small"></i></a>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="shopping-cart-img">
-                          <a href="shop-product-right.html"
-                            ><img
-                              alt="Evara"
-                              src="/static/User_assets/imgs/shop/thumbnail-4.jpg"
-                          /></a>
-                        </div>
-                        <div class="shopping-cart-title">
-                          <h4>
-                            <a href="shop-product-right.html"
-                              >Macbook Pro 2022</a
-                            >
-                          </h4>
-                          <h3><span>1 × </span>$3500.00</h3>
-                        </div>
-                        <div class="shopping-cart-delete">
-                          <a href="#"><i class="fi-rs-cross-small"></i></a>
-                        </div>
-                      </li>
-                    </ul>
-                    <div class="shopping-cart-footer">
-                      <div class="shopping-cart-total">
-                        <h4>Total <span>$383.00</span></h4>
-                      </div>
-                      <div class="shopping-cart-button">
-                        <a href="shop-cart.html">View cart</a>
-                        <a href="shop-checkout.html">Checkout</a>
-                      </div>
-                    </div>
-                  </div>
+                  
+
                 </div>
                 <div class="header-action-icon-2 d-block d-lg-none">
                   <div class="burger-icon burger-icon-white">
@@ -672,6 +625,10 @@
                                       <li class="nav-item">
                                           <a class="nav-link active" href="/myAddress"><i class="fi-rs-marker mr-10"></i>My Address</a>
                                       </li>
+                                      <li class="nav-item">
+                                        <a class="nav-link" href="/user/wallet"><i class="fi-rs-label mr-10"></i>Wallet</a>
+
+                                    </li>
                       
                                       <li class="nav-item">
                                           <a class="nav-link" href="/userLogout"><i class="fi-rs-sign-out mr-10"></i>Logout</a>

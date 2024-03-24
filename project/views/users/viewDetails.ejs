@@ -18,6 +18,16 @@
     />
     <!-- Template CSS -->
     <link rel="stylesheet" href="/static/User_assets/css/main.css?v=3.4" />
+    <style>
+      .text-danger {
+    color: red;
+}
+
+.text-success {
+    color: green;
+}
+
+    </style>
   </head>
 
   <body>
@@ -311,217 +321,78 @@
         </div>
       </div>
     </div>
-    <header class="header-area header-style-2 header-height-2">
-      <div class="header-top header-top-ptb-1 d-none d-lg-block">
+    <header class="header-area header-style-1 header-height-1">
+      <!-- <div class="header-top header-top-ptb-1 d-none d-lg-block">
         <div class="container">
           <div class="row align-items-center">
-            <div class="col-xl-3 col-lg-4">
-              <div class="header-info">
-                <ul>
-                  <li>
-                    <i class="fi-rs-smartphone"></i>
-                    <a href="#">(+01) - 2345 - 6789</a>
-                  </li>
-                  <li>
-                    <i class="fi-rs-marker"></i
-                    ><a href="page-contact.html">Our location</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-4">
-              <div class="text-center">
-                <div id="news-flash" class="d-inline-block">
-                  <ul>
-                    <li>
-                      Get great devices up to 50% off
-                      <a href="shop-grid-right.html">View details</a>
-                    </li>
-                    <li>Supper Value Deals - Save more with coupons</li>
-                    <li>
-                      Trendy 25silver jewelry, save up 35% off today
-                      <a href="shop-grid-right.html">Shop now</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-4">
-              <div class="header-info header-info-right">
-                <ul>
-                  <li>
-                    <a class="language-dropdown-active" href="#">
-                      <i class="fi-rs-world"></i> English
-                      <i class="fi-rs-angle-small-down"></i
-                    ></a>
-                    <ul class="language-dropdown">
-                      <li>
-                        <a href="#"
-                          ><img
-                            src="/static/User_assets/imgs/theme/flag-fr.png"
-                            alt=""
-                          />Français</a
-                        >
-                      </li>
-                      <li>
-                        <a href="#"
-                          ><img
-                            src="/static/User_assets/imgs/theme/flag-dt.png"
-                            alt=""
-                          />Deutsch</a
-                        >
-                      </li>
-                      <li>
-                        <a href="#"
-                          ><img
-                            src="/static/User_assets/imgs/theme/flag-ru.png"
-                            alt=""
-                          />Pусский</a
-                        >
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <i class="fi-rs-user"></i>
-                      <% if (user) { %>
+            
+            
 
-                       <a href="/userLogout">Logout</a>
-
-                      <% }else{ %>
-                        <a href="/userLogin">Login</a>
-                        <% } %>
-                  </li>
-                </ul>
-              </div>
-            </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
         <div class="container">
           <div class="header-wrap">
             <div class="logo logo-width-1">
-              <a href="index.html"
-                ><img src="/static/User_assets/imgs/theme/logo.svg" alt="logo"
-              /></a>
+              <a href="/">
+                <h1>TimeX</h1>
+              </a>
             </div>
             <div class="header-right">
-              <div class="search-style-2">
-                <form action="#">
-                  <!-- <select class="select-active">
-                    <option>All Categories</option>
-                    <option>Women's</option>
-                    <option>Men's</option>
-                    <option>Cellphones</option>
-                    <option>Computer</option>
-                    <option>Electronics</option>
-                    <option>Accessories</option>
-                    <option>Home & Garden</option>
-                    <option>Luggage</option>
-                    <option>Shoes</option>
-                    <option>Mother & Kids</option>
-                  </select> -->
-                  <input type="text" placeholder="Search for items..." />
+              <div class="search-style-1">
+                <form action="/search" method="GET">
+                  <input type="text" name="q" placeholder="Search for items..." /> 
+                  <button type="submit"><i class="fi-rs-search"></i></button>
                 </form>
               </div>
               <div class="header-action-right">
                 <div class="header-action-2">
+                  
                   <div class="header-action-icon-2">
                     <a href="shop-wishlist.html">
-                      <img
-                        class="svgInject"
-                        alt="Evara"
-                        src="/static/User_assets/imgs/theme/icons/icon-heart.svg"
-                      />
-                      <span class="pro-count blue">4</span>
+                      <img class="svgInject" alt="Evara" src="/static/User_assets/imgs/theme/icons/icon-heart.svg" />
+                      <!-- <span class="pro-count blue">4</span> -->
                     </a>
                   </div>
                   <div class="header-action-icon-2">
-                    <a class="mini-cart-icon" href="shop-cart.html">
-                      <img
-                        alt="Evara"
-                        src="/static/User_assets/imgs/theme/icons/icon-cart.svg"
-                      />
-                      <span class="pro-count blue">2</span>
+                    <a class="mini-cart-icon" href="/shopCart">
+                      <img alt="Evara" src="/static/User_assets/imgs/theme/icons/icon-cart.svg" />
+                      <!-- <span class="pro-count blue">2</span> -->
                     </a>
-                    <div class="cart-dropdown-wrap cart-dropdown-hm2">
-                      <!-- <ul>
-                        <li>
-                          <div class="shopping-cart-img">
-                            <a href="shop-product-right.html"
-                              ><img
-                                alt="Evara"
-                                src="/static/User_assets/imgs/shop/thumbnail-3.jpg"
-                            /></a>
-                          </div>
-                          <div class="shopping-cart-title">
-                            <h4>
-                              <a href="shop-product-right.html"
-                                >Daisy Casual Bag</a
-                              >
-                            </h4>
-                            <h4><span>1 × </span>$800.00</h4>
-                          </div>
-                          <div class="shopping-cart-delete">
-                            <a href="#"><i class="fi-rs-cross-small"></i></a>
-                          </div>
-                        </li>
-                        <li>
-                          <div class="shopping-cart-img">
-                            <a href="shop-product-right.html"
-                              ><img
-                                alt="Evara"
-                                src="/static/User_assets/imgs/shop/thumbnail-2.jpg"
-                            /></a>
-                          </div>
-                          <div class="shopping-cart-title">
-                            <h4>
-                              <a href="shop-product-right.html"
-                                >Corduroy Shirts</a
-                              >
-                            </h4>
-                            <h4><span>1 × </span>$3200.00</h4>
-                          </div>
-                          <div class="shopping-cart-delete">
-                            <a href="#"><i class="fi-rs-cross-small"></i></a>
-                          </div>
-                        </li>
-                      </ul> -->
-
-
-                      <!-- <div class="shopping-cart-footer">
-                        <div class="shopping-cart-total">
-                          <h4>Total <span>$4000.00</span></h4>
-                        </div>
-                        <div class="shopping-cart-button">
-                          <a href="shop-cart.html" class="outline">View cart</a>
-                          <a href="shop-checkout.html">Checkout</a>
-                        </div>
-                      </div> -->
-
-
-                    </div>
                   </div>
+                  <div class="header-action-icon-2">
+                    <a class="mini-cart-icon" href="/usersProfileHome">
+                      <i class="fi-rs-user"></i>
+                      <!-- <img alt="Evara" src="/static/User_assets/imgs/theme/icons/userProfile.jpg" style="width: 70px; height: 40px;" /> -->
+                      
+                    </a>
+                  </div>
+
+
+
+
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      
       <div class="header-bottom header-bottom-bg-color sticky-bar">
         <div class="container">
           <div class="header-wrap header-space-between position-relative">
             <div class="logo logo-width-1 d-block d-lg-none">
-              <a href="index.html"
-                ><img src="/static/User_assets/imgs/theme/logo.svg" alt="logo"
-              /></a>
+              <a href="/"
+                ><h1>TimeX</h1>
+              </a>
             </div>
             <div class="header-nav d-none d-lg-flex">
-              <div class="main-categori-wrap d-none d-lg-block">
-                <a class="categori-button-active open" href="#">
+              <!-- <div class="main-categori-wrap d-none d-lg-block">
+                <a class="categori-button-active open" href="/shop">
                   <span class="fi-rs-apps"></span> Browse Categories
                 </a>
-              </div>
+              </div> -->
               <div
                 class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block"
               >
@@ -529,112 +400,65 @@
                   <ul>
                     <li>
                       <a class="active" href="/"
-                        >Home 
-                      </a>
+                        >Home</a>
                     </li>
                     <li>
                       <a href="#">About</a>
                     </li>
                     <li>
-                      <a href="/shop"
-                        >Shop 
-                      </a>
+                      <a href="/shop">Shop</a>
                     </li>
 
                     <li>
-                      <a href="blog-category-grid.html"
-                        >Blog <i class="fi-rs-angle-down"></i
-                      ></a>
+                      <a href="#"
+                        >Blog</a>
                     </li>
 
                     <li>
-                      <a href="page-contact.html">Contact</a>
+                      <a href="#">Contact</a>
                     </li>
                   </ul>
                 </nav>
               </div>
             </div>
+
+
             <div class="hotline d-none d-lg-block">
-              <p>
-                <i class="fi-rs-headset"></i><span>Hotline</span> 1900 - 888
-              </p>
+              <ul>
+                <i class="fi-rs-sign-out mr-10"></i>
+
+                  <% if (user) { %>
+
+                   <a href="/userLogout">Logout</a>
+
+                  <% }else{ %>
+                    <a href="/userLogin">Login</a>
+                    <% } %>
+                  </ul>
             </div>
-            <p class="mobile-promotion">
-              Happy <span class="text-brand">Mother's Day</span>. Big Sale Up to
-              40%
-            </p>
+           
+            
             <div class="header-action-right d-block d-lg-none">
               <div class="header-action-2">
                 <div class="header-action-icon-2">
-                  <a href="shop-wishlist.html">
+                  <a href="#">
                     <img
                       alt="Evara"
                       src="/static/User_assets/imgs/theme/icons/icon-heart.svg"
                     />
-                    <span class="pro-count white">4</span>
+                    <!-- <span class="pro-count white">4</span> -->
                   </a>
                 </div>
                 <div class="header-action-icon-2">
-                  <a class="mini-cart-icon" href="shop-cart.html">
+                  <a class="mini-cart-icon" href="/shopCart">
                     <img
                       alt="Evara"
                       src="/static/User_assets/imgs/theme/icons/icon-cart.svg"
                     />
-                    <span class="pro-count white">2</span>
+                    <!-- <span class="pro-count white">2</span> -->
                   </a>
-                  <div class="cart-dropdown-wrap cart-dropdown-hm2">
-                    <ul>
-                      <li>
-                        <div class="shopping-cart-img">
-                          <a href="shop-product-right.html"
-                            ><img
-                              alt="Evara"
-                              src="/static/User_assets/imgs/shop/thumbnail-3.jpg"
-                          /></a>
-                        </div>
-                        <div class="shopping-cart-title">
-                          <h4>
-                            <a href="shop-product-right.html"
-                              >Plain Striola Shirts</a
-                            >
-                          </h4>
-                          <h3><span>1 × </span>$800.00</h3>
-                        </div>
-                        <div class="shopping-cart-delete">
-                          <a href="#"><i class="fi-rs-cross-small"></i></a>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="shopping-cart-img">
-                          <a href="shop-product-right.html"
-                            ><img
-                              alt="Evara"
-                              src="/static/User_assets/imgs/shop/thumbnail-4.jpg"
-                          /></a>
-                        </div>
-                        <div class="shopping-cart-title">
-                          <h4>
-                            <a href="shop-product-right.html"
-                              >Macbook Pro 2022</a
-                            >
-                          </h4>
-                          <h3><span>1 × </span>$3500.00</h3>
-                        </div>
-                        <div class="shopping-cart-delete">
-                          <a href="#"><i class="fi-rs-cross-small"></i></a>
-                        </div>
-                      </li>
-                    </ul>
-                    <div class="shopping-cart-footer">
-                      <div class="shopping-cart-total">
-                        <h4>Total <span>$383.00</span></h4>
-                      </div>
-                      <div class="shopping-cart-button">
-                        <a href="shop-cart.html">View cart</a>
-                        <a href="shop-checkout.html">Checkout</a>
-                      </div>
-                    </div>
-                  </div>
+                  
+
                 </div>
                 <div class="header-action-icon-2 d-block d-lg-none">
                   <div class="burger-icon burger-icon-white">
@@ -787,7 +611,7 @@
               <div class="breadcrumb">
                   <a href="/" rel="nofollow">Home</a>
                   <span></span> Fashion
-                  <span></span> Abstract Print Patchwork Dress
+                  <span></span> View Details
               </div>
           </div>
       </div>
@@ -837,7 +661,7 @@
                                               <span class="font-small ml-5 text-muted"> (25 reviews)</span>
                                           </div>
                                       </div>
-                                      <<div class="clearfix product-price-cover">
+                                      <div class="clearfix product-price-cover">
                                         <div class="product-price primary-color float-left">
                                             <ins><span class="text-brand">₹<%= prod.price %></span></ins>
                                             <ins><span class="old-price font-md ml-15"> ₹<%= prod.oldPrice %></span></ins>
@@ -847,7 +671,7 @@
                                             // Round the discount percent to two decimal places
                                             discountPercent = Math.round(discountPercent * 100) / 100;
                                             %>
-                                            <span class="save-price  font-md color3 ml-15"><%= discountPercent %>% Off</span>
+                                           <span class="save-price font-md color3 ml-15" style="color: rgb(84, 209, 84); font-weight: bold;"><%= discountPercent %>% Off</span>
                                         </div>
                                     </div>
                                     
@@ -864,21 +688,23 @@
                                       </div>
                                       <div class="bt-1 border-color-1 mt-30 mb-30"></div>
                                       <div class="detail-extralink">
-                                          <div class="detail-qty border radius">
-                                              <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
-                                              <span class="qty-val">1</span>
-                                              <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
-                                          </div>
+                                         
                                           <div class="product-extra-link2">
-                                              <button type="submit" class="button button-add-to-cart">Add to cart</button>
-                                              <a aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                              <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
+                                              <button class="button button-add-to-cart"  onclick="cart('<%=prod._id %>')">Add to cart</button>
+                                              <a aria-label="Add To Wishlist" class="action-btn hover-up" href="#" onclick="wishlist('<%=prod._id %>')" ><i class="fi-rs-heart"></i></a>
+
+                                              
                                           </div>
                                       </div>
                                       <ul class="product-meta font-xs color-grey mt-50">
                                           <li class="mb-5">SKU: <a href="#">FWM15VKT</a></li>
                                          
-                                          <li>Availability:<span class="in-stock text-success ml-5"><%= prod.stock < 1 ? 'Out of stock' : (prod.stock === 1 ? '1 item in stock' : prod.stock + ' items in stock') %></span></li>
+                                          <li>Availability:
+                                            <span class="availability-text <%= prod.stock < 1 ? 'text-danger' : (prod.stock === 1 ? 'text-danger' : 'text-success') %> ml-5">
+                                                <%= prod.stock < 1 ? 'Out of stock' : (prod.stock === 1 ? '1 item in stock' : prod.stock + ' items in stock') %>
+                                            </span>
+                                        </li>
+                                        
                                       </ul>
                                   </div>
                                   <!-- Detail Info -->
@@ -1113,6 +939,7 @@
                                           </div>
                                       </div>
                                   </div>
+
                               </div>
                           </div>
                           <div class="row mt-60">
@@ -1121,6 +948,7 @@
                               </div>
                               <div class="col-12">
                                   <div class="row related-products">
+
                                       <div class="col-lg-3 col-md-4 col-12 col-sm-6">
                                           <div class="product-cart-wrap small hover-up">
                                               <div class="product-img-action-wrap">
@@ -1136,9 +964,7 @@
                                                       <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="fi-rs-heart"></i></a>
                                                       <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="fi-rs-shuffle"></i></a>
                                                   </div>
-                                                  <div class="product-badges product-badges-position product-badges-mrg">
-                                                      <span class="hot">Hot</span>
-                                                  </div>
+                                                  
                                               </div>
                                               <div class="product-content-wrap">
                                                   <h2><a href="shop-product-right.html" tabindex="0">Ulstra Bass Headphone</a></h2>
@@ -1153,105 +979,12 @@
                                               </div>
                                           </div>
                                       </div>
-                                      <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-                                          <div class="product-cart-wrap small hover-up">
-                                              <div class="product-img-action-wrap">
-                                                  <div class="product-img product-img-zoom">
-                                                      <a href="shop-product-right.html" tabindex="0">
-                                                          <img class="default-img" src="assets/imgs/shop/product-3-1.jpg" alt="">
-                                                          <img class="hover-img" src="assets/imgs/shop/product-4-2.jpg" alt="">
-                                                      </a>
-                                                  </div>
-                                                  <div class="product-action-1">
-                                                      <a aria-label="Quick view" class="action-btn small hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal
-"><i class="fi-rs-search"></i></a>
-                                                      <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="fi-rs-heart"></i></a>
-                                                      <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="fi-rs-shuffle"></i></a>
-                                                  </div>
-                                                  <div class="product-badges product-badges-position product-badges-mrg">
-                                                      <span class="sale">-12%</span>
-                                                  </div>
-                                              </div>
-                                              <div class="product-content-wrap">
-                                                  <h2><a href="shop-product-right.html" tabindex="0">Smart Bluetooth Speaker</a></h2>
-                                                  <div class="rating-result" title="90%">
-                                                      <span>
-                                                      </span>
-                                                  </div>
-                                                  <div class="product-price">
-                                                      <span>$138.85 </span>
-                                                      <span class="old-price">$145.8</span>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-                                          <div class="product-cart-wrap small hover-up">
-                                              <div class="product-img-action-wrap">
-                                                  <div class="product-img product-img-zoom">
-                                                      <a href="shop-product-right.html" tabindex="0">
-                                                          <img class="default-img" src="assets/imgs/shop/product-4-1.jpg" alt="">
-                                                          <img class="hover-img" src="assets/imgs/shop/product-4-2.jpg" alt="">
-                                                      </a>
-                                                  </div>
-                                                  <div class="product-action-1">
-                                                      <a aria-label="Quick view" class="action-btn small hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal
-"><i class="fi-rs-search"></i></a>
-                                                      <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="fi-rs-heart"></i></a>
-                                                      <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="fi-rs-shuffle"></i></a>
-                                                  </div>
-                                                  <div class="product-badges product-badges-position product-badges-mrg">
-                                                      <span class="new">New</span>
-                                                  </div>
-                                              </div>
-                                              <div class="product-content-wrap">
-                                                  <h2><a href="shop-product-right.html" tabindex="0">HomeSpeak 12UEA Goole</a></h2>
-                                                  <div class="rating-result" title="90%">
-                                                      <span>
-                                                      </span>
-                                                  </div>
-                                                  <div class="product-price">
-                                                      <span>$738.85 </span>
-                                                      <span class="old-price">$1245.8</span>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-                                          <div class="product-cart-wrap small hover-up mb-0">
-                                              <div class="product-img-action-wrap">
-                                                  <div class="product-img product-img-zoom">
-                                                      <a href="shop-product-right.html" tabindex="0">
-                                                          <img class="default-img" src="assets/imgs/shop/product-5-1.jpg" alt="">
-                                                          <img class="hover-img" src="assets/imgs/shop/product-3-2.jpg" alt="">
-                                                      </a>
-                                                  </div>
-                                                  <div class="product-action-1">
-                                                      <a aria-label="Quick view" class="action-btn small hover-up" data-bs-toggle="modal" data-bs-target="#quickViewModal
-"><i class="fi-rs-search"></i></a>
-                                                      <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="fi-rs-heart"></i></a>
-                                                      <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html" tabindex="0"><i class="fi-rs-shuffle"></i></a>
-                                                  </div>
-                                                  <div class="product-badges product-badges-position product-badges-mrg">
-                                                      <span class="hot">Hot</span>
-                                                  </div>
-                                              </div>
-                                              <div class="product-content-wrap">
-                                                  <h2><a href="shop-product-right.html" tabindex="0">Dadua Camera 4K 2022EF</a></h2>
-                                                  <div class="rating-result" title="90%">
-                                                      <span>
-                                                      </span>
-                                                  </div>
-                                                  <div class="product-price">
-                                                      <span>$89.8 </span>
-                                                      <span class="old-price">$98.8</span>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
                                   </div>
+
                               </div>
                           </div>
+
+
                       </div>
                   </div>
               </div>
@@ -1452,6 +1185,63 @@
       </div>
     </div>
     <!-- Vendor JS-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+      function cart(id) {
+        Swal.fire({
+          title: "Successfully add to cart!",
+          showCancelButton: false,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "ok"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "/addTocart/" + id;
+          }
+        });
+      }
+    </script>
+    <script>
+      function wishlist(id) {
+         fetch(`/addToWishlist/${id}`, {
+             method: "PATCH",
+             headers: {
+                 'Content-Type': 'application/json',
+             },
+         })
+         .then(response => {
+             if (!response.ok) {
+                 throw new Error('Something went wrong');
+             }
+             return response.json();
+         })
+         .then(data => {
+             Swal.fire({
+                 icon: data.icon,
+                 title: data.message,
+                 showConfirmButton: false
+             });
+             setTimeout(() => {
+                 // Redirect after showing the message
+                 window.location.href = '/';
+             }, 2000);
+         })
+         .catch(error => {
+             Swal.fire({
+                 icon: "error",
+                 title: "Oops...",
+                 text: error.message,
+                 showConfirmButton: false
+             });
+             setTimeout(() => {
+                 location.reload();
+             }, 2000);
+             console.error('Error occurred while adding product to wishlist:', error);
+         });
+     }
+     
+     </script>
     <script src="/static/User_assets/js/vendor/modernizr-3.6.0.min.js"></script>
     <script src="/static/User_assets/js/vendor/jquery-3.6.0.min.js"></script>
     <script src="/static/User_assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>

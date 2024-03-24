@@ -5,8 +5,10 @@ const nodemailer = require('nodemailer');
 require("dotenv").config();
 const {genaratorOpt} = require("../optgenarator");
 const products = require('../models/products');
-const Address = require('../models/address');
-const Cart = require('../models/cart')
+
+const Order = require('../models/order');
+const Category = require('../models/category')
+const Wallet = require('../models/wallet')
 
 
 
@@ -20,10 +22,17 @@ const userController = {
 
 // Login Root
     userLoginPage:(req,res)=>{
-        res.render("users/userLogin")
+        if(!req.session.user){
+            res.render("users/userLogin")
+        }else{
+            res.redirect('/')
+        }
+        
     },
 
     userSignupLogin: async (req,res)=>{
+        if(!req.session.user){
+
         const existingEmail = await User.findOne({email: req.body.email});
         const existingName = await User.findOne({name:req.body.name});
         const existingPhone = await User.findOne({phone:req.body.phone});
@@ -70,7 +79,10 @@ const userController = {
                res.json({message:er.message, type:"danger"}); 
             }
         }
-    
+    }else{
+        res.redirect('/')
+    }
+     
     },
 
     userLoginPost:async (req,res)=>{
@@ -84,7 +96,6 @@ const userController = {
                         req.session.user = req.body.email;
                         req.session.userID= data._id;
                         
-    
                         res.redirect('/')
                     }else{
                         res.render('users/userLogin',{title:"Login",alert:"Entered Email or password is incorrect",});
@@ -101,14 +112,34 @@ const userController = {
             res.status(500).send("Internal Server Error");
         }
     },
-    userHomePage:async (req,res)=>{
-        const prod = await products.find({ispublished:true})
-        .populate({
-            path:"category",
-            match:{islisted:true}
-        })
-        res.render('users/Homepage',{prod:prod,user:req.session.user})
-    },
+    userHomePage:async (req, res) => {
+        try {
+          const prod = await products.aggregate([
+            {
+              $lookup: {
+                from: 'categories',
+                localField: 'category',
+                foreignField: '_id',
+                as: 'category'
+              }
+            },
+            {
+              $match: {
+                $and: [
+                  { 'category.islisted': true },
+                  { ispublished: true }
+                ]
+              }
+            }
+          ]);
+      
+          res.render('users/Homepage', { prod: prod, user: req.session.user });
+        } catch (error) {
+          console.error('Error fetching data:', error);
+          // Handle error appropriately
+          res.status(500).send('Internal Server Error');
+        }
+      },
 
     userOptPost:async(req,res)=>{
       const OTP = await User.findOne({OTP:req.body.otp});
@@ -150,10 +181,93 @@ const userController = {
             res.json({ message: err.message, type: "danger" });
         }
     },
-    userShop: async (req,res)=>{
-        const prod = await products.find({ispublished:true});
-        res.render("users/shop",{prod:prod,user:req.session.user})
-    },
+    userShop: async (req, res) => {
+        try {
+          const category = req.params.category || undefined; 
+          const sort = req.query.sort; 
+          const page = req.params.page || 1; 
+          const limit = 6; 
+          const skip = (page - 1) * limit; 
+          
+          let prod;
+          let cate;
+      
+          let query = { ispublished: true };
+      
+         
+          if (category) {
+              query.category = category;
+          }
+      
+          
+          let sortOptions = {};
+          if (sort === 'lowToHigh') {
+              sortOptions.price = 1;
+          } else if (sort === 'highToLow') {
+              sortOptions.price = -1;
+          }
+      
+         
+          let pipeline = [
+              {
+                  $match: query
+              },
+              {
+                  $lookup: {
+                      from: 'categories',
+                      localField: 'category',
+                      foreignField: '_id',
+                      as: 'category'
+                  }
+              },
+              {
+                  $addFields: {
+                      category: { $arrayElemAt: ['$category', 0] } 
+                  }
+              },
+              {
+                  $match: { 'category.islisted': true }
+              },
+              {
+                  $skip: skip
+              },
+              {
+                  $limit: limit
+              }
+          ];
+      
+          
+          if (Object.keys(sortOptions).length > 0) {
+              pipeline.unshift({ $sort: sortOptions });
+          }
+      
+         
+          prod = await products.aggregate(pipeline);
+      
+          
+          const totalProductsCount = await products.countDocuments(query);
+          const totalPages = Math.ceil(totalProductsCount / limit);
+      
+         
+          cate = await Category.find({ islisted: true });
+      
+          // Render the view with data
+          res.render("users/shop", {
+              prod: prod,
+              cate: cate,
+              user: req.session.user,
+              text: category, 
+              sort: sort, 
+              currentPage: page, 
+              totalPages: totalPages
+          });
+        } catch (error) {
+          console.error("Error fetching products:", error);
+          res.status(500).send("Internal Server Error");
+        }
+      },
+    
+    
 
     viewDetails:async (req,res)=>{
         try{
@@ -228,79 +342,7 @@ const userController = {
     },
     
     
-    addAddress:async(req,res)=>{
-        const userId = req.session.userID
-        // const data = await Address.findById({ userId:userId  });
-        res.render("users/addAddress",{ user:req.session.user})
-    },
-    myAddress: async (req, res) => {
-        try {
-            const userId = req.session.userID;
-            const address = await Address.findOne({ userId: userId });
     
-            if (address) {
-                // Address found, render the view with the address details
-                res.render("users/myAddress", { user: req.session.user, address: [address] });
-            } else {
-                // No address found, render the view with a message indicating no address
-                res.render("users/myAddress", { user: req.session.user, address: null });
-            }
-        } catch (error) {
-            console.error("Error fetching address:", error);
-            // Handle the error appropriately, maybe render an error page or send an error response
-            res.status(500).send("Internal Server Error");
-        }
-    },
-    
-    ordersProfile: (req,res)=>{
-        res.render("users/ordersProfile",{user:req.session.user})
-    },
-    addressPost: async (req, res) => {
-        try {
-            const userId = req.session.userID;
-            const newAddress = { ...req.body };
-            
-            let userAddress = await Address.findOne({ userId: userId });
-    
-            if (!userAddress) {
-                userAddress = new Address({ userId: userId, addressDetails: [] });
-            }
-    
-            userAddress.addressDetails.push(newAddress);
-            await userAddress.save();
-    
-            req.session.message = {
-                type: "success",
-                message: "Address Added Successfully!",
-            };
-            res.redirect("/myAddress");
-        } catch (error) {
-            console.error("Error adding Address:", error);
-            res.status(500).json({ message: "Server Error" });
-        }
-    },
-    
-    // addressPost: async (req,res)=>{
-    //     const userId = req.session.userID
-    //     const address = new Address({
-    //         // email:req.session.user,
-    //         address: req.body.address,
-    //         street: req.body.street,
-    //         city:req.body.city,
-    //         state:req.body.state,
-    //         zip:req.body.zip,
-    //         country:req.body.country,
-    //     })
-    //     try{
-    //         await address.save();
-    //         res.redirect('/myAddress')
-    //     }catch(err){
-    //         console.error(err);
-    //         res.json({message : err.message , type :"danger" })
-    //     }
-
-
-    // },
     updateUserDetails: async(req,res)=>{
         const email = req.body.email;
         try{
@@ -315,84 +357,7 @@ const userController = {
             res.json({message : err.message , type :"danger" })
         }
     },
-    editAddress: async (req, res) => {
-        try {
-            const id = req.params.id;
-            const addressDocument = await Address.findOne({ 'addressDetails._id': id });
-            
-            if (!addressDocument) {
-                res.redirect('/myAddress');
-                return;
-            }
-            
-            const address = addressDocument.addressDetails.find(address => address._id.toString() === id);
-            
-            res.render("users/editAddress", { user: req.session.user, address: address });
-        } catch (err) {
-            console.error(err);
-            res.json({ message: err.message, type: "danger" });
-        }
-    },
-    
-        
-    updateAddressPost: async (req, res) => {
-        const id = req.params.id;
-        try {
-            const addressDocument = await Address.findOne({ 'addressDetails._id': id });
-            
-            if (!addressDocument) {
-                res.redirect('/myAddress');
-                return;
-            }
-            
-            // Find the index of the address to update in the addressDetails array
-            const addressIndex = addressDocument.addressDetails.findIndex(address => address._id.toString() === id);
-            
-            // Update the address details at the found index
-            addressDocument.addressDetails[addressIndex].address = req.body.address;
-            addressDocument.addressDetails[addressIndex].street = req.body.street;
-            addressDocument.addressDetails[addressIndex].city = req.body.city;
-            addressDocument.addressDetails[addressIndex].state = req.body.state;
-            addressDocument.addressDetails[addressIndex].zip = req.body.zip;
-            addressDocument.addressDetails[addressIndex].country = req.body.country;
-    
-            // Save the updated document
-            await addressDocument.save();
-    
-            res.redirect('/myAddress');
-        } catch (err) {
-            console.error(err);
-            res.json({ message: err.message, type: "danger" });
-        }
-    },
-    
-    deleteAddress: async(req,res)=>{
-        const id = req.params.id;
-
-        try{
-            // Find the document containing the address details
-              const addressDocument = await Address.findOne({ 'addressDetails._id': id });
-
-             if (!addressDocument) {
-             res.redirect('/myAddress');
-               return;
-              }
-
-          // Use $pull to remove the matching address from the addressDetails array
-             await Address.updateOne(
-               { _id: addressDocument._id },
-               { $pull: { addressDetails: { _id: id } } }
-           );
-
-          // After deleting the address, you might want to redirect the user to a different page
-                  res.redirect('/myAddress');
-
-        }catch(err){
-            console.error(err);
-        res.json({message : err.message});
-        }
-        
-    },
+   
     changePassword: async (req, res) => {
         const id = req.params.id;
 
@@ -425,186 +390,194 @@ const userController = {
             return res.status(500).json({ message: error.message, type: "danger" });
         }
     },
-    shopCart: async (req, res) => {
-       
-            const userId = req.session.userID;
-            const userCart = await Cart.find({ userId:userId }).populate({
-                path: "items.product",
-                message: "product"
-            });
     
-            res.render("users/shopCart", { cart: userCart, user: req.session.user });
-    
-       
-    },
-    addTocart:async(req,res)=>{
-        try{
-            const userId= req.session.userID;
-            const productId = req.params.id;
-            const quantity = 1;
-            const product = await products.findById(productId);
-            if(!product){
-                return res.status(404).json({message:"product not found"})
-            }
-            let userCart = await Cart.findOne({userId});
-            if(!userCart){
-                const newCart = new Cart({
-                    userId,
-                    items:[{
-                        product:productId,
-                        price:product.price,
-                        quantity:quantity,
-                    }],
-                    totalPrice :product.price * quantity
-                });
-                userCart = await newCart.save();
-            }else{
-                const existingItem = userCart.items.find(item=>item.product.toString()===productId.toString());
-                if(existingItem){
-                    existingItem.quantity += quantity;
-                }else{
-                    userCart.items.push({product:productId,price:product.price,quantity:quantity});
-
-                }
-                userCart.totalPrice = userCart.items.reduce((total,item)=>total+(item.price* item.quantity),0)
-                await userCart.save();
-            }
-            res.redirect('/')
-        }catch(err){
-            console.error("Error adding item to cart :",err);
-            res.status(500).json({message:"internal Sever Error"})
-        }
-    },
-
-    checkOut: async(req,res)=>{
+    ordersProfile:async (req,res)=>{
         const userId = req.session.userID
-        const emailId = req.session.email
-        const data = await User.findOne({emailId})
-        const address = await Address.findOne({ userId: userId });
-        const userCart = await Cart.find({userId:userId}).populate({
-            path:"items.product",
-            message:"product"
-        })
-        res.render("users/checkOut",{data:data, cart:userCart,user:req.session.user,address: [address]})
+        
+        const order = await Order.find({userId:userId})
+        res.render("users/ordersProfile",{user:req.session.user,order:order})
     },
 
-    // defaultAddress:async(req,res)=>{
-    //     const userId =req.session.userID
-    //     const addressId = req.body.addressId
-    //     try {
-    //         const userAddress = await Address.findOne({ userId });
-    
-    //         if (!userAddress) {
-    //             console.log("User Details not found");
-    //             return res.status(404).json({ success: false, message: "User Details not found" });
-    //         }
-    
-    //         userAddress.addressDetails.forEach(address => {
-    //             address.isDefault = userAddress._id.toString() === addressId;
-    //         });
-    
-    //         await userAddress.save();
-    
-    //         res.json({
-    //             success: true,
-    //             message: "Default Address Updated successfully",
-    //         });
-    //     } catch (error) {
-    //         console.error("Error updating default address:", error);
-    //         res.status(500).json({ success: false, error: 'Internal server error' });
-    //     }
-    // },
-    updateQuantity: async (req, res) => {
+
+
+    orderTrack: async (req, res) => {
         try {
+            const id = req.params.id;
             const userId = req.session.userID;
-            const productId = req.params.id;
-            const action = req.params.action; // "increment" or "decrement"
-            console.log(productId);
-            console.log(action);
             
-    
-            // Fetch userCart and update quantity based on action
-            let userCart = await Cart.findOne({ userId: userId });
-            console.log(userCart);
-    
-            if (userCart) {
-                const productInCart = userCart.items.find(item => item.product.toString() === productId);
-    
-                if (productInCart) {
-                    if (action === "increment") {
-                        productInCart.quantity += 1;
-                    
-                    } else if (action === "decrement" && productInCart.quantity > 1) {
-                        productInCart.quantity -= 1;
-                    }
-    
-                    userCart.totalPrice = userCart.items.reduce((total, item) => total + item.price * item.quantity, 0);
-    
-                    await userCart.save();
-    
-                    // Send the updated details in the response
-                    res.json({
-                        success: true,
-                        quantity: productInCart.quantity,
-                        price: productInCart.price,
-                        totalPrice: userCart.totalPrice
-                    });
-                } else {
-                    res.json({ success: false, message: 'Product not found in the cart' });
-                }
-            } else {
-                res.json({ success: false, message: 'User cart not found' });
+            
+            // Fetching order details for the user
+            const order = await Order.find({ userId: userId }).populate({
+                path:"items.product",
+                message:"product"
+            })
+            if (!order) {
+                return res.status(404).send("Order not found");
             }
-        } catch (error) {
-            console.error('Error updating quantity:', error);
-            res.status(500).json({ success: false, message: 'Internal server error' });
-        }
-    },
 
-    deleteCartProduct: async (req, res) => {
-        const id = req.params.id;
-        console.log(id);
-        try {
-            // Find the document containing the cart item
-            const cartDocument = await Cart.findOne({ 'items._id': id });
-    
-            if (!cartDocument) {
-                res.redirect('/shopCart');
-                return;
+            // Finding the specific order item
+            const orderItem = order.find(item => item._id.toString() === id);
+            
+            if (!orderItem) {
+                return res.status(404).send("Order item not found");
             }
-    
-            // Use $pull to remove the matching item from the items array
-            await Cart.updateOne(
-                { _id: cartDocument._id },
-                { $pull: { items: { _id: id } } }
-            );
-    
-            // After deleting the item, redirect the user to a different page
-            res.redirect('/shopCart');
-    
+
+            let pending, shipped, delivered, cancelled
+  
+        if(orderItem.orderStatus === "Pending"){
+          pending = "#F78200"
+        }else if(orderItem.orderStatus === "Shipped"){
+          shipped = "#FFAD00"
+        }else if(orderItem.orderStatus === "Delivered"){
+          delivered = "#00FF2D"
+        }else if(orderItem.orderStatus === "Cancelled"){
+          cancelled = "#FF0000"
+        }
+
+            res.render('users/orderTrack', { 
+                user: req.session.user, 
+                orderItem: orderItem, 
+                order: order,
+                pending,
+                shipped,
+                delivered,
+                cancelled 
+                
+            });
         } catch (err) {
             console.error(err);
-            res.json({ message: err.message });
+            res.status(500).send("Internal Server Error");
         }
     },
-    orderPost:async(req,res)=>{
-        try{
-            const userId = req.session.userID
-            const {productId,totalPrice} = req.body
+
+
+    // cancelOrder: async (req, res) => {
+    //     try {
+    //         const orderId = req.params.id;
+    //         const userId = req.session.userID;
             
-            if(!productId){
-                return res.status(400).json({ error: 'Please select an address' });
-                
-            }
-        let userOrder = await Order.findOne({ userId });
+           
+            
+           
+    //         const order = await Order.findById(orderId);
+    //         const amount = order.totalPrice;
+    //         if (!order) {
+    //             return res.status(404).json({ error: 'Order not found' });
+    //         }
+    //         else if(order.paymentStatus === 'Paid') {
+    //             const wallet = await Wallet.findOneAndUpdate({ userId }, {
+    //                 $inc: { balance: amount },
+    //                 $push: { transactionHistory: { amount, type: 'deposit', description: "Amount added through Cancel order" } }
+    //             }, { new: true });
+    //             order.orderStatus = 'Cancelled';
+    //             await order.save();
+            
+    //         }
+            
+    //         // This block will execute regardless of the conditions above
+    //         order.orderStatus = 'Cancelled';
+    //         await order.save();
+    
+    //         res.redirect("/ordersProfile")
+    //     } catch (error) {
+    //         console.error('Error canceling order:', error);
+    //         return res.status(500).json({ error: 'Internal server error' });
+    //     }
+    // },
 
-
-        }catch(err){
-
+    orderTrackReturnOrder: async (req, res) => {
+        const { productId, orderId } = req.body;
+        const order = await Order.findOne({ _id: orderId })
+        const returnProduct = order.items.find(product=> product._id.toString()=== productId );
+        const productOne = returnProduct.product
+        const pro = await products.findOne({_id:productOne})
+        const amount = returnProduct.price * returnProduct.quantity
+        if(!returnProduct){
+            return res.status(404).json({ error: 'Product not found in order' });
         }
+        
+            await products.findByIdAndUpdate(productOne, { $inc: { stock: returnProduct.quantity } });
+            //  order.totalPrice -= amount ;
+            //  await order.save();
+             
+                    
+                    const wallet = await Wallet.findOneAndUpdate({ userId: req.session.userID }, {
+                        $inc: { balance: amount },
+                        $push: { transactionHistory: { amount, type: 'deposit', description: "Amount added through Return One order" } }
+                    }, { new: true });
+                    returnProduct.orderStatus = 'Return';
+                    await order.save();
+                    return res.status(200).json({ message: 'Product returned successfully', cancelledProduct: returnProduct });
+                    
+        
     },
 
+    orderTrackCancelOrder:async(req,res)=>{
+        const { productId, orderId } = req.body;
+        const order = await Order.findOne({ _id: orderId })
+        const cancelProduct = order.items.find(product=> product._id.toString()=== productId );
+        const productOne = cancelProduct.product
+        const pro = await products.findOne({_id:productOne})
+        const amount = cancelProduct.price * cancelProduct.quantity
+        if(!cancelProduct){
+            return res.status(404).json({ error: 'Product not found in order' });
+        }
+        if(order.paymentStatus === 'Paid'){
+            await products.findByIdAndUpdate(productOne, { $inc: { stock: cancelProduct.quantity } });
+             order.totalPrice -= amount ;
+             await order.save();
+            //  const userWallet = await Wallet.findOne({ userId: req.session.userID })
+                    
+                    const wallet = await Wallet.findOneAndUpdate({ userId: req.session.userID }, {
+                        $inc: { balance: amount },
+                        $push: { transactionHistory: { amount, type: 'deposit', description: "Amount added through Cancel One order" } }
+                    }, { new: true });
+                    cancelProduct.orderStatus = 'Cancelled';
+                    await order.save();
+                    return res.status(200).json({ message: 'Product cancelled successfully', cancelledProduct: cancelProduct });
+                    
+        }
+        
+            // order.totalPrice -= amount ;
+            await products.findByIdAndUpdate(productOne, { $inc: { stock: cancelProduct.quantity } });
+            cancelProduct.orderStatus = 'Cancelled';
+            await order.save();
+            res.status(200).json({ message: 'Product cancelled successfully', cancelledProduct: cancelProduct });
+
+    },
     
+    
+    
+
+
+    whishlist:async(req,res)=>{
+        const userId = req.session.userID;
+
+
+
+        res.render('users/whishlist' ,{user:req.session.user})
+    },
+
+
+    searchProduct:async (req, res) => {
+        try {
+          const searchTerm = req.query.q; 
+      
+          
+          const searchResults = await products.find({
+            $or: [
+              { product: { $regex: searchTerm, $options: 'i' } }, 
+              { description: { $regex: searchTerm, $options: 'i' } },
+              { category: { $in: await Category.find({ category: { $regex: searchTerm, $options: 'i' } }).distinct('_id') } }
+            ],
+          }).populate('category').exec();
+      
+          res.render('users/searchItems', { results: searchResults,user:req.session.user }); 
+        } catch (error) {
+          console.error('Error searching products:', error);
+          res.status(500).json({ error: 'Internal server error' });
+        }
+      },
     
 }
 

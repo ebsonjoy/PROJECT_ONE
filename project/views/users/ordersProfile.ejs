@@ -18,6 +18,18 @@
     />
     <!-- Template CSS -->
     <link rel="stylesheet" href="/static/User_assets/css/main.css?v=3.4" />
+    <style>
+      /* Additional styling for payment statuses */
+      .Paid {
+          font-weight: bold;
+          color: #28a745; /* Green color for paid status */
+      }
+  
+      .Pending {
+          font-weight: bold;
+          color: #ffc107; /* Yellow color for pending status */
+      }
+  </style>
   </head>
 
   <body>
@@ -311,7 +323,7 @@
         </div>
       </div>
     </div>
-    <header class="header-area header-style-2 header-height-2">
+    <header class="header-area header-style-1 header-height-1">
       <!-- <div class="header-top header-top-ptb-1 d-none d-lg-block">
         <div class="container">
           <div class="row align-items-center">
@@ -330,28 +342,31 @@
               </a>
             </div>
             <div class="header-right">
-              <div class="search-style-2">
-                <form action="#">
-                  <input type="text" placeholder="Search for items..." />
+              <div class="search-style-1">
+                <form action="/search" method="GET">
+                  <input type="text" name="q" placeholder="Search for items..." /> 
+                  <button type="submit"><i class="fi-rs-search"></i></button>
                 </form>
               </div>
               <div class="header-action-right">
                 <div class="header-action-2">
+                  
                   <div class="header-action-icon-2">
                     <a href="shop-wishlist.html">
                       <img class="svgInject" alt="Evara" src="/static/User_assets/imgs/theme/icons/icon-heart.svg" />
-                      <span class="pro-count blue">4</span>
+                      <!-- <span class="pro-count blue">4</span> -->
                     </a>
                   </div>
                   <div class="header-action-icon-2">
-                    <a class="mini-cart-icon" href="shop-cart.html">
+                    <a class="mini-cart-icon" href="/shopCart">
                       <img alt="Evara" src="/static/User_assets/imgs/theme/icons/icon-cart.svg" />
-                      <span class="pro-count blue">2</span>
+                      <!-- <span class="pro-count blue">2</span> -->
                     </a>
                   </div>
                   <div class="header-action-icon-2">
                     <a class="mini-cart-icon" href="/usersProfileHome">
-                      <img alt="Evara" src="/static/User_assets/imgs/theme/icons/user-profile.jpg" />
+                      <i class="fi-rs-user"></i>
+                      <!-- <img alt="Evara" src="/static/User_assets/imgs/theme/icons/userProfile.jpg" style="width: 70px; height: 40px;" /> -->
                       
                     </a>
                   </div>
@@ -375,11 +390,11 @@
               </a>
             </div>
             <div class="header-nav d-none d-lg-flex">
-              <div class="main-categori-wrap d-none d-lg-block">
-                <a class="categori-button-active open" href="#">
+              <!-- <div class="main-categori-wrap d-none d-lg-block">
+                <a class="categori-button-active open" href="/shop">
                   <span class="fi-rs-apps"></span> Browse Categories
                 </a>
-              </div>
+              </div> -->
               <div
                 class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block"
               >
@@ -412,7 +427,8 @@
 
             <div class="hotline d-none d-lg-block">
               <ul>
-                <i class="fi-rs-user"></i>
+                <i class="fi-rs-sign-out mr-10"></i>
+
                   <% if (user) { %>
 
                    <a href="/userLogout">Logout</a>
@@ -427,75 +443,24 @@
             <div class="header-action-right d-block d-lg-none">
               <div class="header-action-2">
                 <div class="header-action-icon-2">
-                  <a href="shop-wishlist.html">
+                  <a href="#">
                     <img
                       alt="Evara"
                       src="/static/User_assets/imgs/theme/icons/icon-heart.svg"
                     />
-                    <span class="pro-count white">4</span>
+                    <!-- <span class="pro-count white">4</span> -->
                   </a>
                 </div>
                 <div class="header-action-icon-2">
-                  <a class="mini-cart-icon" href="shop-cart.html">
+                  <a class="mini-cart-icon" href="/shopCart">
                     <img
                       alt="Evara"
                       src="/static/User_assets/imgs/theme/icons/icon-cart.svg"
                     />
-                    <span class="pro-count white">2</span>
+                    <!-- <span class="pro-count white">2</span> -->
                   </a>
-                  <div class="cart-dropdown-wrap cart-dropdown-hm2">
-                    <ul>
-                      <li>
-                        <div class="shopping-cart-img">
-                          <a href="shop-product-right.html"
-                            ><img
-                              alt="Evara"
-                              src="/static/User_assets/imgs/shop/thumbnail-3.jpg"
-                          /></a>
-                        </div>
-                        <div class="shopping-cart-title">
-                          <h4>
-                            <a href="shop-product-right.html"
-                              >Plain Striola Shirts</a
-                            >
-                          </h4>
-                          <h3><span>1 × </span>$800.00</h3>
-                        </div>
-                        <div class="shopping-cart-delete">
-                          <a href="#"><i class="fi-rs-cross-small"></i></a>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="shopping-cart-img">
-                          <a href="shop-product-right.html"
-                            ><img
-                              alt="Evara"
-                              src="/static/User_assets/imgs/shop/thumbnail-4.jpg"
-                          /></a>
-                        </div>
-                        <div class="shopping-cart-title">
-                          <h4>
-                            <a href="shop-product-right.html"
-                              >Macbook Pro 2022</a
-                            >
-                          </h4>
-                          <h3><span>1 × </span>$3500.00</h3>
-                        </div>
-                        <div class="shopping-cart-delete">
-                          <a href="#"><i class="fi-rs-cross-small"></i></a>
-                        </div>
-                      </li>
-                    </ul>
-                    <div class="shopping-cart-footer">
-                      <div class="shopping-cart-total">
-                        <h4>Total <span>$383.00</span></h4>
-                      </div>
-                      <div class="shopping-cart-button">
-                        <a href="shop-cart.html">View cart</a>
-                        <a href="shop-checkout.html">Checkout</a>
-                      </div>
-                    </div>
-                  </div>
+                  
+
                 </div>
                 <div class="header-action-icon-2 d-block d-lg-none">
                   <div class="burger-icon burger-icon-white">
@@ -672,6 +637,10 @@
                                         <li class="nav-item">
                                             <a class="nav-link"  href="/myAddress" ><i class="fi-rs-marker mr-10"></i>My Address</a>
                                         </li>
+                                        <li class="nav-item">
+                                          <a class="nav-link" href="/user/wallet"><i class="fi-rs-label mr-10"></i>Wallet</a>
+
+                                      </li>
                                        
                                         <li class="nav-item">
                                             <a class="nav-link" href="/userLogout"><i class="fi-rs-sign-out mr-10"></i>Logout</a>
@@ -687,41 +656,35 @@
                                             <h5 class="mb-0">Your Orders</h5>
                                         </div>
                                             <div class="container">
-                                                <table class="table">
-                                                    <thead>
+                                              <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Order ID</th>
+                                                        <th>Date</th>
+                                                        <th>Total Amount</th>
+                                                        <th>Payment Status</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% order.forEach(item => { %>
                                                         <tr>
-                                                            <th>Order ID</th>
-                                                            <th>Date</th>
-                                                            <th>Total Amount</th>
-                                                            <th>Payment Status</th>
-                                                            <th>Order Status</th>
-                                                            <th>Actions</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>123456</td>
-                                                            <td>2024-02-27</td>
-                                                            <td>$100.00</td>
-                                                            <td>Paid</td>
-                                                            <td>Delivered</td>
+                                                            <td><%=item.trackingId %></td>
+                                                            <td><%=new Date(item.orderDate).toLocaleDateString() %></td>
+                                                            <td><%= item.totalPrice %></td>
+                                                            <td class="<%= item.paymentStatus === 'Paid' ? 'Paid' : 'Pending' %>"><%= item.paymentStatus %></td>
                                                             <td>
-                                                                <a href="/view-order/123456" class="btn btn-primary btn-sm rounded">Track Order</a>
-                                                        
-                                                                <a href="/cancel-order/123456" class="btn btn-danger btn-sm rounded">Cancel Order</a>
-                                                            </td>
+                                                                  <a href="/orderTrack/<%= item._id %>" class="btn btn-primary btn-sm rounded">Track Order</a>      
+                                                          </td>
+                                                          
                                                         </tr>
-                                                        <!-- Repeat this row structure for each order -->
-                                                    </tbody>
-                                                </table>
+                                                    <% }) %>
+                                                </tbody>
+                                            </table>
+              
                                             </div>
                                         </div>
-                                        
-                                        
-                                        
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>
@@ -925,6 +888,42 @@
       </div>
     </div>
     <!-- Vendor JS-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+      function cancelOrder(orderId) {
+        Swal.fire({
+          title: "Are you sure?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Cancel The Order"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "/cancelOrder/" + orderId; 
+          }
+        });
+      }
+      </script>
+       <script>
+        function returnOrder(orderId) {
+          Swal.fire({
+            title: "Are you sure?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Return The Order"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "/returnOrder/" + orderId;
+            }
+          });
+        }
+        </script>
+
+
     <script src="/static/User_assets/js/vendor/modernizr-3.6.0.min.js"></script>
     <script src="/static/User_assets/js/vendor/jquery-3.6.0.min.js"></script>
     <script src="/static/User_assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>

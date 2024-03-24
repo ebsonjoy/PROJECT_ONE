@@ -311,7 +311,7 @@
         </div>
       </div>
     </div>
-    <header class="header-area header-style-2 header-height-2">
+    <header class="header-area header-style-1 header-height-1">
       <!-- <div class="header-top header-top-ptb-1 d-none d-lg-block">
         <div class="container">
           <div class="row align-items-center">
@@ -330,28 +330,31 @@
               </a>
             </div>
             <div class="header-right">
-              <div class="search-style-2">
-                <form action="#">
-                  <input type="text" placeholder="Search for items..." />
+              <div class="search-style-1">
+                <form action="/search" method="GET">
+                  <input type="text" name="q" placeholder="Search for items..." /> 
+                  <button type="submit"><i class="fi-rs-search"></i></button>
                 </form>
               </div>
               <div class="header-action-right">
                 <div class="header-action-2">
+                  
                   <div class="header-action-icon-2">
                     <a href="shop-wishlist.html">
                       <img class="svgInject" alt="Evara" src="/static/User_assets/imgs/theme/icons/icon-heart.svg" />
-                      <span class="pro-count blue">4</span>
+                      <!-- <span class="pro-count blue">4</span> -->
                     </a>
                   </div>
                   <div class="header-action-icon-2">
-                    <a class="mini-cart-icon" href="shop-cart.html">
+                    <a class="mini-cart-icon" href="/shopCart">
                       <img alt="Evara" src="/static/User_assets/imgs/theme/icons/icon-cart.svg" />
-                      <span class="pro-count blue">2</span>
+                      <!-- <span class="pro-count blue">2</span> -->
                     </a>
                   </div>
                   <div class="header-action-icon-2">
                     <a class="mini-cart-icon" href="/usersProfileHome">
-                      <img alt="Evara" src="/static/User_assets/imgs/theme/icons/user-profile.jpg" />
+                      <i class="fi-rs-user"></i>
+                      <!-- <img alt="Evara" src="/static/User_assets/imgs/theme/icons/userProfile.jpg" style="width: 70px; height: 40px;" /> -->
                       
                     </a>
                   </div>
@@ -375,11 +378,11 @@
               </a>
             </div>
             <div class="header-nav d-none d-lg-flex">
-              <div class="main-categori-wrap d-none d-lg-block">
-                <a class="categori-button-active open" href="#">
+              <!-- <div class="main-categori-wrap d-none d-lg-block">
+                <a class="categori-button-active open" href="/shop">
                   <span class="fi-rs-apps"></span> Browse Categories
                 </a>
-              </div>
+              </div> -->
               <div
                 class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block"
               >
@@ -412,7 +415,8 @@
 
             <div class="hotline d-none d-lg-block">
               <ul>
-                <i class="fi-rs-user"></i>
+                <i class="fi-rs-sign-out mr-10"></i>
+
                   <% if (user) { %>
 
                    <a href="/userLogout">Logout</a>
@@ -427,75 +431,24 @@
             <div class="header-action-right d-block d-lg-none">
               <div class="header-action-2">
                 <div class="header-action-icon-2">
-                  <a href="shop-wishlist.html">
+                  <a href="#">
                     <img
                       alt="Evara"
                       src="/static/User_assets/imgs/theme/icons/icon-heart.svg"
                     />
-                    <span class="pro-count white">4</span>
+                    <!-- <span class="pro-count white">4</span> -->
                   </a>
                 </div>
                 <div class="header-action-icon-2">
-                  <a class="mini-cart-icon" href="shop-cart.html">
+                  <a class="mini-cart-icon" href="/shopCart">
                     <img
                       alt="Evara"
                       src="/static/User_assets/imgs/theme/icons/icon-cart.svg"
                     />
-                    <span class="pro-count white">2</span>
+                    <!-- <span class="pro-count white">2</span> -->
                   </a>
-                  <div class="cart-dropdown-wrap cart-dropdown-hm2">
-                    <ul>
-                      <li>
-                        <div class="shopping-cart-img">
-                          <a href="shop-product-right.html"
-                            ><img
-                              alt="Evara"
-                              src="/static/User_assets/imgs/shop/thumbnail-3.jpg"
-                          /></a>
-                        </div>
-                        <div class="shopping-cart-title">
-                          <h4>
-                            <a href="shop-product-right.html"
-                              >Plain Striola Shirts</a
-                            >
-                          </h4>
-                          <h3><span>1 × </span>$800.00</h3>
-                        </div>
-                        <div class="shopping-cart-delete">
-                          <a href="#"><i class="fi-rs-cross-small"></i></a>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="shopping-cart-img">
-                          <a href="shop-product-right.html"
-                            ><img
-                              alt="Evara"
-                              src="/static/User_assets/imgs/shop/thumbnail-4.jpg"
-                          /></a>
-                        </div>
-                        <div class="shopping-cart-title">
-                          <h4>
-                            <a href="shop-product-right.html"
-                              >Macbook Pro 2022</a
-                            >
-                          </h4>
-                          <h3><span>1 × </span>$3500.00</h3>
-                        </div>
-                        <div class="shopping-cart-delete">
-                          <a href="#"><i class="fi-rs-cross-small"></i></a>
-                        </div>
-                      </li>
-                    </ul>
-                    <div class="shopping-cart-footer">
-                      <div class="shopping-cart-total">
-                        <h4>Total <span>$383.00</span></h4>
-                      </div>
-                      <div class="shopping-cart-button">
-                        <a href="shop-cart.html">View cart</a>
-                        <a href="shop-checkout.html">Checkout</a>
-                      </div>
-                    </div>
-                  </div>
+                  
+
                 </div>
                 <div class="header-action-icon-2 d-block d-lg-none">
                   <div class="burger-icon burger-icon-white">
@@ -673,6 +626,10 @@
                                           <a class="nav-link active" href="/myAddress"><i class="fi-rs-marker mr-10"></i>My Address</a>
                                       </li>
                                       <li class="nav-item">
+                                        <a class="nav-link" href="/user/wallet"><i class="fi-rs-label mr-10"></i>Wallet</a>
+
+                                    </li>
+                                      <li class="nav-item">
                                           <a class="nav-link" href="/userLogout"><i class="fi-rs-sign-out mr-10"></i>Logout</a>
                                       </li>
                                   </ul>
@@ -683,37 +640,42 @@
                                   <div class="tab-pane show active">
                                     <div class="card-body">
                                       <form action="/addressSubmit" method="post" name="add-address">
-                                          <div class="row">
+                                        <div class="row">
                                             <div class="form-group col-md-12">
-                                              <label>Address <span class="required">*</span></label>
-                                              <input required="" class="form-control square" name="address" type="text">
-                                          </div>
-                                              <div class="form-group col-md-6">
-                                                  <label>Street Address <span class="required">*</span></label>
-                                                  <input required="" class="form-control square" name="street" type="text">
-                                              </div>
-                                              <div class="form-group col-md-6">
-                                                  <label>City <span class="required">*</span></label>
-                                                  <input required="" class="form-control square" name="city" type="text">
-                                              </div>
-                                              <div class="form-group col-md-6">
-                                                  <label>State <span class="required">*</span></label>
-                                                  <input required="" class="form-control square" name="state" type="text">
-                                              </div>
-                                              <div class="form-group col-md-6">
-                                                  <label>ZIP Code <span class="required">*</span></label>
-                                                  <input required="" class="form-control square" name="zip" type="text">
-                                              </div>
-                                              <div class="form-group col-md-6">
-                                                  <label>Country <span class="required">*</span></label>
-                                                  <input required="" class="form-control square" name="country" type="text">
-                                              </div>
-                                              <!-- You can add more address-related fields here, such as apartment number, etc. -->
-                                              <div class="col-md-12">
-                                                  <button type="submit" class="btn btn-fill-out submit"  >Save Address</button>
-                                              </div>
-                                          </div>
-                                      </form>
+                                                <label>Address <span class="required">*</span></label>
+                                                <input required="" class="form-control square" name="address" type="text" oninput="validateAddress(this)">
+                                                <div class="error-message" id="address-error"></div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Street Address <span class="required">*</span></label>
+                                                <input required="" class="form-control square" name="street" type="text" oninput="validateStreet(this)">
+                                                <div class="error-message" id="street-error"></div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>City <span class="required">*</span></label>
+                                                <input required="" class="form-control square" name="city" type="text" oninput="validateCity(this)">
+                                                <div class="error-message" id="city-error"></div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>State <span class="required">*</span></label>
+                                                <input required="" class="form-control square" name="state" type="text" oninput="validateState(this)">
+                                                <div class="error-message" id="state-error"></div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>ZIP Code <span class="required">*</span></label>
+                                                <input required="" class="form-control square" name="zip" type="text" oninput="validateZIP(this)">
+                                                <div class="error-message" id="zip-error"></div>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Country <span class="required">*</span></label>
+                                                <input required="" class="form-control square" name="country" type="text" oninput="validateCountry(this)">
+                                                <div class="error-message" id="country-error"></div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <button type="submit" class="btn btn-fill-out submit" id="submit-btn" disabled>Save Address</button>
+                                            </div>
+                                        </div>
+                                    </form>
                                   </div>
                                   
                                   </div>
@@ -917,6 +879,92 @@
       </div>
     </div>
     <!-- Vendor JS-->
+    <script>
+      function validateAddress(input) {
+          var value = input.value.trim();
+          var errorField = input.nextElementSibling;
+          if (value === "") {
+              errorField.innerHTML = "<span style='color: red;'>Address is required</span>";
+          } else {
+              errorField.innerHTML = "<span style='color: green;'>Valid</span>";
+          }
+          validateForm();
+      }
+  
+      function validateStreet(input) {
+          var value = input.value.trim();
+          var errorField = input.nextElementSibling;
+          if (value === "") {
+              errorField.innerHTML = "<span style='color: red;'>Street Address is required</span>";
+          } else {
+              errorField.innerHTML = "<span style='color: green;'>Valid</span>";
+          }
+          validateForm();
+      }
+  
+      function validateCity(input) {
+          var value = input.value.trim();
+          var errorField = input.nextElementSibling;
+          if (value === "") {
+              errorField.innerHTML = "<span style='color: red;'>City is required</span>";
+          } else {
+              errorField.innerHTML = "<span style='color: green;'>Valid</span>";
+          }
+          validateForm();
+      }
+  
+      function validateState(input) {
+          var value = input.value.trim();
+          var errorField = input.nextElementSibling;
+          if (value === "") {
+              errorField.innerHTML = "<span style='color: red;'>State is required</span>";
+          } else {
+              errorField.innerHTML = "<span style='color: green;'>Valid</span>";
+          }
+          validateForm();
+      }
+  
+      function validateZIP(input) {
+          var value = input.value.trim();
+          var errorField = input.nextElementSibling;
+          var zipPattern = /^\d{6}$|^\d{6}-\d{5}$/; // US ZIP code pattern
+          if (value === "") {
+              errorField.innerHTML = "<span style='color: red;'>ZIP Code is required</span>";
+          } else if (!zipPattern.test(value)) {
+              errorField.innerHTML = "<span style='color: red;'>Invalid ZIP Code</span>";
+          } else {
+              errorField.innerHTML = "<span style='color: green;'>Valid</span>";
+          }
+          validateForm();
+      }
+  
+      function validateCountry(input) {
+          var value = input.value.trim();
+          var errorField = input.nextElementSibling;
+          if (value === "") {
+              errorField.innerHTML = "<span style='color: red;'>Country is required</span>";
+          } else {
+              errorField.innerHTML = "<span style='color: green;'>Valid</span>";
+          }
+          validateForm();
+      }
+  
+      function validateForm() {
+          var submitBtn = document.getElementById("submit-btn");
+          var inputs = document.querySelectorAll("input[required]");
+          var isValid = true;
+          inputs.forEach(function(input) {
+              var value = input.value.trim();
+              var errorField = input.nextElementSibling;
+              if (value === "") {
+                  isValid = false;
+              } else if (errorField.textContent.includes("Invalid")) {
+                  isValid = false;
+              }
+          });
+          submitBtn.disabled = !isValid;
+      }
+  </script>
     <script src="/static/User_assets/js/vendor/modernizr-3.6.0.min.js"></script>
     <script src="/static/User_assets/js/vendor/jquery-3.6.0.min.js"></script>
     <script src="/static/User_assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>

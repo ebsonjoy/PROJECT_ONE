@@ -9,10 +9,6 @@ const userSchema = new mongoose.Schema({
 
     addressDetails:[
         {
-            // email:{
-            //     type:String,
-            //     required:true,
-            // },
             address: {
                 type:String,
                 required:true,

@@ -76,7 +76,7 @@
                         <span id="email-error" style="font-size: 14px; margin-top: -20px;"></span>
                         </div> <!-- form-group// -->
                         <div class="mb-3">
-                            <input class="form-control" placeholder="Password"  name="password" type="password" id="contact-password" required onkeyup="validatePassword()" >
+                            <input class="form-control" placeholder="Password"  name="password" type="password" >
                         <span id="password-error" style="font-size: 14px; margin-top: -20px;"></span>
                         </div> <!-- form-group// -->
                         <div class="mb-3">
@@ -142,50 +142,50 @@
         }, 3000);
   
         var emailError = document.getElementById("email-error");
-        var passwordError = document.getElementById("password-error");
+        // var passwordError = document.getElementById("password-error");
         var submitError = document.getElementById("submit-error");
   
-        function validateEmail() {
-          var email = document.getElementById("contact-email").value.trim();
+        // function validateEmail() {
+        //   var email = document.getElementById("contact-email").value.trim();
   
-          if (email.length == 0) {
-            emailError.innerHTML = "Email is required";
-            emailError.style.color = "red";
-            return false;
-          }
-          if (!email.match(/^[A-Za-z\._\-0-9]+@[A-Za-z]+\.[a-z]{2,}$/)) {
-            emailError.innerHTML = "Email is invalid";
-            emailError.style.color = "red";
-            return false;
-          }
-          emailError.innerHTML = "Valid";
-          emailError.style.color = "green";
-          return true;
-        }
+        //   if (email.length == 0) {
+        //     emailError.innerHTML = "Email is required";
+        //     emailError.style.color = "red";
+        //     return false;
+        //   }
+        //   if (!email.match(/^[A-Za-z\._\-0-9]+@[A-Za-z]+\.[a-z]{2,}$/)) {
+        //     emailError.innerHTML = "Email is invalid";
+        //     emailError.style.color = "red";
+        //     return false;
+        //   }
+        //   emailError.innerHTML = "Valid";
+        //   emailError.style.color = "green";
+        //   return true;
+        // }
   
-        function validatePassword() {
-          var password = document.getElementById("contact-password").value.trim();
+        // function validatePassword() {
+        //   var password = document.getElementById("contact-password").value.trim();
   
-          if (password.length === 0) {
-            passwordError.innerHTML = "Password is required";
-            passwordError.style.color = "red";
-            return false;
-          }
-          if (
-            password.length < 8 ||
-            !/[a-zA-Z]/.test(password) ||
-            !/\d/.test(password) ||
-            !/[!@#$%^&*(),.?":{}|<>]/.test(password)
-          ) {
-            passwordError.innerHTML = "Incorrect password";
-            passwordError.style.color = "red";
-            return false;
-          }
+        //   if (password.length === 0) {
+        //     passwordError.innerHTML = "Password is required";
+        //     passwordError.style.color = "red";
+        //     return false;
+        //   }
+        //   if (
+        //     password.length < 8 ||
+        //     !/[a-zA-Z]/.test(password) ||
+        //     !/\d/.test(password) ||
+        //     !/[!@#$%^&*(),.?":{}|<>]/.test(password)
+        //   ) {
+        //     passwordError.innerHTML = "Incorrect password";
+        //     passwordError.style.color = "red";
+        //     return false;
+        //   }
   
-          passwordError.innerHTML = "Valid";
-          passwordError.style.color = "green";
-          return true;
-        }
+        //   passwordError.innerHTML = "Valid";
+        //   passwordError.style.color = "green";
+        //   return true;
+        // }
         function validateForm() {
           if (!validateEmail() || !validatePassword()) {
             submitError.style.display = "block";

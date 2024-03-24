@@ -1,10 +1,20 @@
 const express = require('express');
 const nocache = require('nocache');
 const router = express.Router();
-const bcrypt = require('bcrypt');
 router.use(nocache());
-const User = require('../models/users');
-const {upload,adminController} = require("../controller/adminController")
+
+const adminController = require("../controller/adminController");
+const adminCategoryController = require("../controller/adminCategoryController");
+const {upload,productsController} = require("../controller/productsController")
+const adminOrderController = require("../controller/adminOrderController");
+const adminCouponController = require("../controller/adminCouponController");
+const { route } = require('./userRoutes');
+
+
+
+
+
+
 
 
 
@@ -22,23 +32,47 @@ router.get('/unblock/:id',adminController.UserUnblock)
 // --------------------------------------------------------------------------
 
 // Admin Category
-router.get("/category",adminController.adminCategory)
-router.get("/addcategory",adminController.adminAddCategory)
-router.post("/submitcategory",adminController.adminNewCategory)
-router.get('/editcategory/:id',adminController.adminEditCategory)
-router.post('/submiteditcategory/:id', adminController.adminUpdateCategory)
-router.get('/list/:id',adminController.CategoryList)
-router.get('/unlist/:id',adminController.CategoryUnlist)
+router.get("/category",adminCategoryController.adminCategory)
+router.get("/addcategory",adminCategoryController.adminAddCategory)
+router.post("/submitcategory",adminCategoryController.adminNewCategory)
+router.get('/editcategory/:id',adminCategoryController.adminEditCategory)
+router.post('/submiteditcategory/:id', adminCategoryController.adminUpdateCategory)
+router.get('/list/:id',adminCategoryController.CategoryList)
+router.get('/unlist/:id',adminCategoryController.CategoryUnlist)
 // --------------------------------------------------------------------------
 
 // Admin Product
-router.get("/products",adminController.adminProducts)
-router.get("/addproducts",adminController.adminAddProducts)
-router.post("/submitproduct",upload,adminController.adminNewProducts)
-router.get("/edit/:id",adminController.adminEditProduct)
-router.post('/update/:id',upload,adminController.adminUpdateProduct)
-router.get('/publish/:id',adminController.ProductPublish)
-router.get('/unpublish/:id',adminController.ProductUnpublish)
+router.get("/products",productsController.adminProducts)
+router.get("/addproducts",productsController.adminAddProducts)
+router.post("/submitproduct",upload,productsController.adminNewProducts)
+router.get("/edit/:id",productsController.adminEditProduct)
+router.post('/update/:id',upload,productsController.adminUpdateProduct)
+router.get('/publish/:id',productsController.ProductPublish)
+router.get('/unpublish/:id',productsController.ProductUnpublish)
+// --------------------------------------------------------------------------
+
+
+// Admin Order
+router.get("/adminOrderProfile",adminOrderController.adminOrderProfile)
+router.get("/orderDetails/:id",adminOrderController.orderDetails)
+router.post('/update_order_status',adminOrderController.updateOrderStatus);
+
+// coupon
+router.get('/coupon',adminCouponController.couponPage)
+router.get('/addCoupon',adminCouponController.addCoupon)
+router.post('/submitNewCoupon',adminCouponController.submitNewCoupon)
+router.get('/listCoupon/:id',adminCouponController.couponList)
+router.get('/unlistCoupon/:id',adminCouponController.couponUnlist)
+router.get('/editCoupon/:id',adminCouponController.editCoupon)
+router.post('/updateCoupon/:id',adminCouponController.updateCoupon)
+
+// dashboard
+
+// router.post('/generate-report',adminController.generateReport)
+router.post('/generate-report',adminController.generateReport)
+
+
+
 
 
 

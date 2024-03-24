@@ -312,7 +312,7 @@
         </div>
       </div>
     </div>
-    <header class="header-area header-style-2 header-height-2">
+   <header class="header-area header-style-1 header-height-1">
       <!-- <div class="header-top header-top-ptb-1 d-none d-lg-block">
         <div class="container">
           <div class="row align-items-center">
@@ -331,28 +331,31 @@
               </a>
             </div>
             <div class="header-right">
-              <div class="search-style-2">
-                <form action="#">
-                  <input type="text" placeholder="Search for items..." />
+              <div class="search-style-1">
+                <form action="/search" method="GET"> <!-- Change the action to the appropriate route for search -->
+                  <input type="text" name="q" placeholder="Search for items..." /> <!-- Include the name attribute for the search term -->
+                  <button type="submit"><i class="fi-rs-search"></i></button>
                 </form>
               </div>
               <div class="header-action-right">
                 <div class="header-action-2">
+                  
                   <div class="header-action-icon-2">
                     <a href="shop-wishlist.html">
                       <img class="svgInject" alt="Evara" src="/static/User_assets/imgs/theme/icons/icon-heart.svg" />
-                      <span class="pro-count blue">4</span>
+                      <!-- <span class="pro-count blue">4</span> -->
                     </a>
                   </div>
                   <div class="header-action-icon-2">
-                    <a class="mini-cart-icon" href="shop-cart.html">
+                    <a class="mini-cart-icon" href="/shopCart">
                       <img alt="Evara" src="/static/User_assets/imgs/theme/icons/icon-cart.svg" />
-                      <span class="pro-count blue">2</span>
+                      <!-- <span class="pro-count blue">2</span> -->
                     </a>
                   </div>
                   <div class="header-action-icon-2">
                     <a class="mini-cart-icon" href="/usersProfileHome">
-                      <img alt="Evara" src="/static/User_assets/imgs/theme/icons/user-profile.jpg" />
+                      <i class="fi-rs-user"></i>
+                      <!-- <img alt="Evara" src="/static/User_assets/imgs/theme/icons/userProfile.jpg" style="width: 70px; height: 40px;" /> -->
                       
                     </a>
                   </div>
@@ -376,11 +379,11 @@
               </a>
             </div>
             <div class="header-nav d-none d-lg-flex">
-              <div class="main-categori-wrap d-none d-lg-block">
-                <a class="categori-button-active open" href="#">
+              <!-- <div class="main-categori-wrap d-none d-lg-block">
+                <a class="categori-button-active open" href="/shop">
                   <span class="fi-rs-apps"></span> Browse Categories
                 </a>
-              </div>
+              </div> -->
               <div
                 class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block"
               >
@@ -413,7 +416,8 @@
 
             <div class="hotline d-none d-lg-block">
               <ul>
-                <i class="fi-rs-user"></i>
+                <i class="fi-rs-sign-out mr-10"></i>
+
                   <% if (user) { %>
 
                    <a href="/userLogout">Logout</a>
@@ -428,75 +432,24 @@
             <div class="header-action-right d-block d-lg-none">
               <div class="header-action-2">
                 <div class="header-action-icon-2">
-                  <a href="shop-wishlist.html">
+                  <a href="#">
                     <img
                       alt="Evara"
                       src="/static/User_assets/imgs/theme/icons/icon-heart.svg"
                     />
-                    <span class="pro-count white">4</span>
+                    <!-- <span class="pro-count white">4</span> -->
                   </a>
                 </div>
                 <div class="header-action-icon-2">
-                  <a class="mini-cart-icon" href="shop-cart.html">
+                  <a class="mini-cart-icon" href="/shopCart">
                     <img
                       alt="Evara"
                       src="/static/User_assets/imgs/theme/icons/icon-cart.svg"
                     />
-                    <span class="pro-count white">2</span>
+                    <!-- <span class="pro-count white">2</span> -->
                   </a>
-                  <div class="cart-dropdown-wrap cart-dropdown-hm2">
-                    <ul>
-                      <li>
-                        <div class="shopping-cart-img">
-                          <a href="shop-product-right.html"
-                            ><img
-                              alt="Evara"
-                              src="/static/User_assets/imgs/shop/thumbnail-3.jpg"
-                          /></a>
-                        </div>
-                        <div class="shopping-cart-title">
-                          <h4>
-                            <a href="shop-product-right.html"
-                              >Plain Striola Shirts</a
-                            >
-                          </h4>
-                          <h3><span>1 × </span>$800.00</h3>
-                        </div>
-                        <div class="shopping-cart-delete">
-                          <a href="#"><i class="fi-rs-cross-small"></i></a>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="shopping-cart-img">
-                          <a href="shop-product-right.html"
-                            ><img
-                              alt="Evara"
-                              src="/static/User_assets/imgs/shop/thumbnail-4.jpg"
-                          /></a>
-                        </div>
-                        <div class="shopping-cart-title">
-                          <h4>
-                            <a href="shop-product-right.html"
-                              >Macbook Pro 2022</a
-                            >
-                          </h4>
-                          <h3><span>1 × </span>$3500.00</h3>
-                        </div>
-                        <div class="shopping-cart-delete">
-                          <a href="#"><i class="fi-rs-cross-small"></i></a>
-                        </div>
-                      </li>
-                    </ul>
-                    <div class="shopping-cart-footer">
-                      <div class="shopping-cart-total">
-                        <h4>Total <span>$383.00</span></h4>
-                      </div>
-                      <div class="shopping-cart-button">
-                        <a href="shop-cart.html">View cart</a>
-                        <a href="shop-checkout.html">Checkout</a>
-                      </div>
-                    </div>
-                  </div>
+                  
+
                 </div>
                 <div class="header-action-icon-2 d-block d-lg-none">
                   <div class="burger-icon burger-icon-white">
@@ -655,6 +608,7 @@
                 </div>
             </div>
         </div>
+       
         <section class="mt-50 mb-50">
             <div class="container">
                 <div class="row">
@@ -677,41 +631,44 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                  <% if (cart&&cart.length>0) { %>
-                                  <% cart.forEach(carts => { %>
-                                    <% carts.items.forEach(cart => { %>
+                                  <% if (cart && cart.items && cart.items.length) { %>
+                                    <% cart.items.forEach(item => { %>
                                     <tr>
-                                        <td class="image product-thumbnail"><img src="/static/products/<%= cart.product.images[0]   %>" alt="#"></td>
+                                        <td class="image product-thumbnail"><img src="/static/products/<%= item.product.images[0]   %>" alt="#"></td>
                                         <td class="product-des product-name">
-                                            <h5 class="product-name"><%= cart.product.product %></a></h5>
+                                            <h5 class="product-name"><%= item.product.product %></a></h5>
                                             
                                         </td>
-                                        <td class="price" data-title="Price"><span>₹<%= cart.price %></span></td>
-                                        <td class="text-center" data-title="Stock">
-                                          <div class="pro-qty-2" style="display: flex;">
-                                              <button class="qty-down" data-id="<%= cart.product._id %>"><i class="fa fa-minus"></i></button>
-                                              <input style="width: 20px; text-align: center; padding-left: 0;" type="text" value="<%= cart.quantity %>" data-id="<%= cart.product._id %>">
-                                              <button class="qty-up" data-id="<%= cart.product._id %>"><i class="fa fa-plus"></i></button>
-                                          </div>
+                                        <td class="price" data-title="Price"><span>₹<%= item.price %></span></td>
+                                        <td class="quantity__item">
+                                          <div class="quantity">
+                                            <div class="pro-qty-2" style="display: flex;">
+                                                <button class="qty-dec" data-id="<%= item.product._id %>">
+                                                    <i class="fa fa-minus"></i>
+                                                </button>
+                                              
+                                                <input style="width: 40px;text-align: center;" type="text" value="<%= item.quantity %>" data-id="<%= item.product._id %>" readonly>
+                                                
+                                                <button class="qty-inc" data-id="<%= item.product._id %>">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                      
                                       </td>
-                                      <td class="cart__price text-right" data-id="<%= cart.product._id %>" data-title="Cart">₹
-                                        <span><%= cart.price * cart.quantity %> </span>
+                                      <td class="cart__price text-right" data-id="<%= item.product._id %>" data-title="Cart">₹
+                                        <span><%= item.price * item.quantity %> </span>
                                     </td>
-                                        <td class="action" data-title="Remove"><a href="/deleteCartProduct/<%=cart._id%>" class="text-muted"><i class="fi-rs-trash"></i></a></td>
+                                        <td class="action" data-title="Remove"><a href="/deleteCartProduct/<%=item._id%>" class="text-muted"><i class="fi-rs-trash"></i></a></td>
                                     </tr>
                                     <% }) %>
 
-                                  <% }) %>
                                   <% }else { %>
                                     <p>No items add</p>
                                   <% } %>
 
 
-                                    <tr>
-                                        <td colspan="6" class="text-end">
-                                            <a href="#" class="text-muted"> <i class="fi-rs-cross-small"></i> Clear Cart</a>
-                                        </td>
-                                    </tr>
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -924,40 +881,51 @@
 
   <!-- quantity icreament and decreament -->
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-   
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <script>
-$(document).ready(function () {
-   $(".qty-up, .qty-down").on("click", function (e) {
-       console.log("working");
-       e.preventDefault();
-       var productId = $(this).data("id");
-       var action = $(this).hasClass("qty-down") ? "decrement" : "increment";
+  $(document).ready(function () {
+      $(".qty-dec, .qty-inc").on("click", function (e) {
+          e.preventDefault();
+          var productId = $(this).data("id");
+          var action = $(this).hasClass("qty-dec") ? "decrement" : "increment";
+  
+          $.ajax({
+              url: "/updateQuantity",
+              type: "POST",
+              data: { productId: productId, action: action }, 
+              success: function (data) {
+                  console.log("Server response:", data);
+                  if (data.success) {
+                      var item = data.item;
+                  
+                      var $quantityInput = $("input[data-id='" + productId + "']");
+                      var $cartPrice = $(".cart__price[data-id='" + productId + "']");
+                      var $totalPrice = $(".cart__total span");
+  
+                      $quantityInput.val(item.quantity);
+                      $cartPrice.text("Rs " + (item.price * item.quantity));
+                      $totalPrice.text("Rs " + data.totalPrice);
+                  } else {
+                      // Handle error messages
+                      if (data.message === "Maximum quantity reached for this product") {
+                            Swal.fire({
+                                title: "Maximum Quantity Reached",
+                                icon: "warning"
+                            });
+                        } 
+                  }
+              },
+              error: function () {
+                  alert("Error in AJAX request.");
+              },
+          });
+      });
+  });
+  </script>
+  
 
-       $.ajax({
-           url: "/updateQuantity/" + productId + "/" + action,
-           type: "POST", // You can change this to "GET" or "PUT" based on your server route
-           success: function (response) {
-               console.log("Server response:", response);
-               if (response.success) {
-                   // Update your HTML elements here
-                   var $qtyInput = $("input[data-id='" + productId + "']");
-                   var $price = $(".cart__price[data-id='" + productId + "'] span");
-                   var $total = $(".cart_total_amount span");
-
-                   $qtyInput.val(response.quantity);
-                   $price.text(response.price * response.quantity);
-                   $total.text(response.totalPrice);
-               } else {
-                   console.error("Error updating quantity:", response.message);
-               }
-           },
-           error: function () {
-               console.error("Error in AJAX request.");
-           },
-       });
-   });
-});
-</script>
+  
     <!-- Vendor JS-->
     <script src="/static/User_assets/js/vendor/modernizr-3.6.0.min.js"></script>
     <script src="/static/User_assets/js/vendor/jquery-3.6.0.min.js"></script>
